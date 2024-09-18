@@ -1,0 +1,54 @@
+﻿@page
+@model Labb4_MVC_Razor.Areas.Identity.Pages.Account.RegisterModel
+
+@{
+    ViewData["Title"] = "Registrera";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h2>Nytt användarkonto</h2>
+<hr />
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <form id="registerForm" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            <div class="form-floating mt-3">
+                <input asp-for="Input.FirstName" class="form-control" aria-required="true" placeholder="Förnamn" />
+                <label asp-for="Input.FirstName">Förnamn</label>
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mt-3">
+                <input asp-for="Input.LastName" class="form-control" aria-required="true" placeholder="Efternamn" />
+                <label asp-for="Input.LastName">Efternamn</label>
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mt-3">
+                <input asp-for="Input.PhoneNumber" class="form-control" aria-required="true" placeholder="Telefonnummer" />
+                <label asp-for="Input.PhoneNumber">Telefonnummer</label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-floating mt-3 mb-5">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label asp-for="Input.Email">E-post</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating mt-3 mb-5">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Lösenord" />
+                <label asp-for="Input.Password">Lösenord</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-floating mt-3 mb-5">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Bekräfta lösenord" />
+                <label asp-for="Input.ConfirmPassword">Bekräfta lösenord</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <hr />
+            <button type="submit" class="btn btn-primary">Registrera</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

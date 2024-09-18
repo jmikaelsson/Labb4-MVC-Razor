@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="hero text-center">
+    <h1 class="display-4">Welcome to the Library</h1>
+    <p>Discover your next adventure in our extensive book collection.</p>
+
+    <div class="search-bar">
+        <input type="text" id="book-search" class="form-control" placeholder="Search for books..." />
+        <button class="btn btn-primary mt-3" onclick="searchBooks()">Search</button>
+    </div>
+</div>
+
+<section class="categories text-center mt-5">
+    <h2>Popular Categories</h2>
+    <div class="category-grid">
+        <div class="category">
+            <img src="~/images/fiction.jpg" alt="Fiction" class="img-fluid">
+            <h3>Fiction</h3>
+        </div>
+        <div class="category">
+            <img src="~/images/nonfiction.jpg" alt="Non-fiction" class="img-fluid">
+            <h3>Non-fiction</h3>
+        </div>
+        <div class="category">
+            <img src="~/images/scifi.jpg" alt="Science Fiction" class="img-fluid">
+            <h3>Science Fiction</h3>
+        </div>
+        <div class="category">
+            <img src="~/images/mystery.jpg" alt="Mystery" class="img-fluid">
+            <h3>Mystery</h3>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        function searchBooks() {
+            const query = document.getElementById('book-search').value;
+            if (query) {
+                alert(`You searched for: ${query}`);
+            } else {
+                alert('Please enter a search term.');
+            }
+        }
+    </script>
+}
