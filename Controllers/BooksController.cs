@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Labb4_MVC_Razer.Models;
 using Labb4_MVC_Razor.Data;
+using Labb4_MVC_Razor.Models;
+using Labb4_MVC_Razer.Data;
 
 namespace Labb4_MVC_Razor.Controllers
 {
@@ -20,10 +22,32 @@ namespace Labb4_MVC_Razor.Controllers
         }
 
         // GET: Books
-        public async Task<IActionResult> Index()
+
+        public IActionResult Index()
         {
-            return View(await _context.Books.ToListAsync());
+            var books = _context.Books.ToList();
+            var uniqueGenres = books.Select(b => b.Genre).Distinct().ToList();
+
+            var viewModel = new BooksViewModel
+            {
+                Books = books,
+                Genres = uniqueGenres
+            };
+
+            return View(viewModel);
         }
+
+        public IActionResult BooksByGenre(string genre)
+        {
+            var booksInGenre = _context.Books.Where(b => b.Genre == genre).ToList(); // Collect books for a chosen genre
+            var viewModel = new BooksByGenreViewModel
+            {
+                Genre = genre,
+                Books = booksInGenre
+            };
+            return View(viewModel);
+        }
+
 
         // GET: Books/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -54,7 +78,7 @@ namespace Labb4_MVC_Razor.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BookId,Title,Author,Description")] Book book)
+        public async Task<IActionResult> Create([Bind("BookId,BookName,Author,BookDescription,Genre,ISBN,InStock,ReleaseYear")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +110,7 @@ namespace Labb4_MVC_Razor.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookId,Title,Author,Description")] Book book)
+        public async Task<IActionResult> Edit(int id, [Bind("BookId,BookName,Author,BookDescription,Genre,ISBN,InStock,ReleaseYear")] Book book)
         {
             if (id != book.BookId)
             {

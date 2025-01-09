@@ -1,0 +1,25 @@
+﻿@model Customer
+
+<h2>Böcker lånade av @Model.FirstName @Model.LastName</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Boktitel</th>
+            <th>Författare</th>
+            <th>Utlåningsdatum</th>
+            <th>Återlämnad</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var loan in Model.BookLoans)
+        {
+            <tr>
+                <td>@loan.Book.BookName</td>
+                <td>@loan.Book.Author</td>
+                <td>@loan.LoanDate.ToShortDateString()</td>
+                <td>@(loan.IsReturned ? "Ja" : "Nej")</td>
+            </tr>
+        }
+    </tbody>
+</table>

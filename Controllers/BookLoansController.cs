@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Labb4_MVC_Razer.Models;
-using Labb4_MVC_Razor.Data;
+using Labb4_MVC_Razer.Data;
 
 namespace Labb4_MVC_Razor.Controllers
 {
@@ -22,7 +22,7 @@ namespace Labb4_MVC_Razor.Controllers
         // GET: BookLoans
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.BooksLoans.Include(b => b.Book).Include(b => b.Customer);
+            var applicationDbContext = _context.BookLoans.Include(b => b.Book).Include(b => b.Customer);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -34,7 +34,7 @@ namespace Labb4_MVC_Razor.Controllers
                 return NotFound();
             }
 
-            var bookLoan = await _context.BooksLoans
+            var bookLoan = await _context.BookLoans
                 .Include(b => b.Book)
                 .Include(b => b.Customer)
                 .FirstOrDefaultAsync(m => m.BookLoanId == id);
@@ -80,7 +80,7 @@ namespace Labb4_MVC_Razor.Controllers
                 return NotFound();
             }
 
-            var bookLoan = await _context.BooksLoans.FindAsync(id);
+            var bookLoan = await _context.BookLoans.FindAsync(id);
             if (bookLoan == null)
             {
                 return NotFound();
@@ -135,7 +135,7 @@ namespace Labb4_MVC_Razor.Controllers
                 return NotFound();
             }
 
-            var bookLoan = await _context.BooksLoans
+            var bookLoan = await _context.BookLoans
                 .Include(b => b.Book)
                 .Include(b => b.Customer)
                 .FirstOrDefaultAsync(m => m.BookLoanId == id);
@@ -152,10 +152,10 @@ namespace Labb4_MVC_Razor.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var bookLoan = await _context.BooksLoans.FindAsync(id);
+            var bookLoan = await _context.BookLoans.FindAsync(id);
             if (bookLoan != null)
             {
-                _context.BooksLoans.Remove(bookLoan);
+                _context.BookLoans.Remove(bookLoan);
             }
 
             await _context.SaveChangesAsync();
@@ -164,7 +164,7 @@ namespace Labb4_MVC_Razor.Controllers
 
         private bool BookLoanExists(int id)
         {
-            return _context.BooksLoans.Any(e => e.BookLoanId == id);
+            return _context.BookLoans.Any(e => e.BookLoanId == id);
         }
     }
 }

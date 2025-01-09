@@ -1078,7 +1078,7 @@ $.validator.addMethod( "nipPL", function( value ) {
 
 /**
  * Created for project jquery-validation.
- * @Description Brazillian PIS or NIS number (Número de Identificação Social Pis ou Pasep) is the equivalent of a
+ * @BookDescription Brazillian PIS or NIS number (Número de Identificação Social Pis ou Pasep) is the equivalent of a
  * Brazilian tax registration number NIS of PIS numbers have 11 digits in total: 10 numbers followed by 1 check numbers
  * that are being used for validation.
  * @copyright (c) 21/08/2018 13:14, Cleiton da Silva Mendonça
@@ -1297,12 +1297,12 @@ $.validator.addMethod( "postcodeUK", function( value, element ) {
  * The end result is that neither of these inputs:
  *
  *	<input class="productinfo" name="partnumber">
- *	<input class="productinfo" name="description">
+ *	<input class="productinfo" name="BookDescription">
  *
  *	...will validate unless at least one of them is filled.
  *
  * partnumber:	{require_from_group: [1,".productinfo"]},
- * description: {require_from_group: [1,".productinfo"]}
+ * BookDescription: {require_from_group: [1,".productinfo"]}
  *
  * options[0]: number of fields that must be filled in the group
  * options[1]: CSS selector that defines the group of conditionally required fields
@@ -1336,14 +1336,14 @@ $.validator.addMethod( "require_from_group", function( value, element, options )
  * The end result, is that none of these inputs:
  *
  *	<input class="productinfo" name="partnumber">
- *	<input class="productinfo" name="description">
+ *	<input class="productinfo" name="BookDescription">
  *	<input class="productinfo" name="color">
  *
  *	...will validate unless either at least two of them are filled,
  *	OR none of them are.
  *
  * partnumber:	{skip_or_fill_minimum: [2,".productinfo"]},
- * description: {skip_or_fill_minimum: [2,".productinfo"]},
+ * BookDescription: {skip_or_fill_minimum: [2,".productinfo"]},
  * color:		{skip_or_fill_minimum: [2,".productinfo"]}
  *
  * options[0]: number of fields that must be filled in the group

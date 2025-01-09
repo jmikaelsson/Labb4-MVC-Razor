@@ -2,10 +2,10 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["BookName"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>@ViewData["BookName"]</h1>
 <div class="row">
     <div class="col-md-4">
         <section>
@@ -67,7 +67,7 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins!)
                                 {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" BookName="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
                                 }
                             </p>
                         </div>

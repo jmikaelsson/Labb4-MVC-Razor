@@ -98,8 +98,8 @@ p {
   margin-bottom: 1rem;
 }
 
-abbr[title],
-abbr[data-bs-original-title] {
+abbr[BookName],
+abbr[data-bs-original-BookName] {
   -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
   cursor: help;

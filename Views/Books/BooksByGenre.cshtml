@@ -1,0 +1,42 @@
+﻿@model BooksByGenreViewModel
+
+
+@{
+    ViewData["Title"] = "BooksByGenre";
+}
+
+<h2 class="card-subtitle mb-2 text-black-50 text-capitalize">@Model.Genre</h2>
+<div class="card-container">
+    @foreach (var item in Model.Books)
+    {
+        <div class="card" style="width: 18rem;">
+            <a asp-action="Details" asp-route-id="@item.BookId" style="text-decoration: none">
+                <img src="@item.ImageUrl" class="card-img-top" alt="Book Image">
+                <div class="card-body">
+                    <h4 class="card-title text-black">@item.BookName</h4>
+                    <h5 class="card-subtitle mb-2 text-muted">@item.Author</h5>
+                </div>
+            </a>
+        </div>
+    }
+</div>
+
+<style>
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .card {
+        flex: 1 1 18rem;
+        margin: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+</style>

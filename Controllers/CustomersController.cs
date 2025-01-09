@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Labb4_MVC_Razor.Data;
 using Labb4_MVC_Razor.Models;
+using Labb4_MVC_Razer.Data;
 
 namespace Labb4_MVC_Razor.Controllers
 {
@@ -42,6 +42,21 @@ namespace Labb4_MVC_Razor.Controllers
 
             return View(customer);
         }
+        public async Task<IActionResult> BooksBorrowed(int id)
+        {
+            var customerLoans = await _context.BookLoans
+                .Include(bl => bl.Book)
+                .Where(bl => bl.CustomerId == id)
+                .ToListAsync();
+
+            if (customerLoans == null || !customerLoans.Any())
+            {
+                return NotFound();
+            }
+
+            return View(customerLoans);
+        }
+
 
         // GET: Customers/Create
         public IActionResult Create()

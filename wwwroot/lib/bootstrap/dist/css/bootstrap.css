@@ -151,8 +151,8 @@ p {
   margin-bottom: 1rem;
 }
 
-abbr[title],
-abbr[data-bs-original-title] {
+abbr[BookName],
+abbr[data-bs-original-BookName] {
   -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
   cursor: help;
@@ -4480,11 +4480,11 @@ textarea.form-control-lg {
   padding: 1rem 1rem;
 }
 
-.card-title {
+.card-BookName {
   margin-bottom: 0.5rem;
 }
 
-.card-subtitle {
+.card-subBookName {
   margin-top: -0.25rem;
   margin-bottom: 0;
 }
@@ -5503,7 +5503,7 @@ textarea.form-control-lg {
   margin: -0.5rem -0.5rem -0.5rem auto;
 }
 
-.modal-title {
+.modal-BookName {
   margin-bottom: 0;
   line-height: 1.5;
 }
@@ -6246,7 +6246,7 @@ textarea.form-control-lg {
   margin-bottom: -0.5rem;
 }
 
-.offcanvas-title {
+.offcanvas-BookName {
   margin-bottom: 0;
   line-height: 1.5;
 }

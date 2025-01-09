@@ -26,7 +26,7 @@ namespace Labb4_MVC_Razor.Models
         [Phone]
         [Display(Name = "Telefonnummer")]
         public string PhoneNumber { get; set; }
-
+       
         public ICollection<BookLoan>? BookLoans { get; set; }
         public string ApplicationUserId { get; set; }
     }

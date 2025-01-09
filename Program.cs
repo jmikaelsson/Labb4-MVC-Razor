@@ -1,3 +1,5 @@
+using Azure.Core;
+using Labb4_MVC_Razer.Data;
 using Labb4_MVC_Razor.Data;
 using Labb4_MVC_Razor.Utility;
 using Microsoft.AspNetCore.Builder;
@@ -54,6 +56,7 @@ namespace Labb4_MVC_Razor
             // Build the application
             var app = builder.Build();
 
+
             // Seed the database
             using (var scope = app.Services.CreateScope())
             {
@@ -64,6 +67,7 @@ namespace Labb4_MVC_Razor
                     var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
                     var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                     DbInitializer.Initialize(dbContext, userManager, roleManager).Wait();
+                    Seed.SeedData(app);
                 }
                 catch (Exception ex)
                 {

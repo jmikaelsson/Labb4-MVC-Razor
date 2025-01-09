@@ -5216,7 +5216,7 @@
   const DefaultAllowlist = {
     // Global attributes allowed on any supplied element below.
     '*': ['class', 'dir', 'id', 'lang', 'role', ARIA_ATTRIBUTE_PATTERN],
-    a: ['target', 'href', 'title', 'rel'],
+    a: ['target', 'href', 'BookName', 'rel'],
     area: [],
     b: [],
     br: [],
@@ -5232,7 +5232,7 @@
     h5: [],
     h6: [],
     i: [],
-    img: ['src', 'srcset', 'alt', 'title', 'width', 'height'],
+    img: ['src', 'srcset', 'alt', 'BookName', 'width', 'height'],
     li: [],
     ol: [],
     p: [],
@@ -5301,7 +5301,7 @@
   const DefaultType$3 = {
     animation: 'boolean',
     template: 'string',
-    title: '(string|element|function)',
+    BookName: '(string|element|function)',
     trigger: 'string',
     delay: '(number|object)',
     html: 'boolean',
@@ -5328,7 +5328,7 @@
     animation: true,
     template: '<div class="tooltip" role="tooltip">' + '<div class="tooltip-arrow"></div>' + '<div class="tooltip-inner"></div>' + '</div>',
     trigger: 'hover focus',
-    title: '',
+    BookName: '',
     delay: 0,
     html: false,
     selector: false,
@@ -5606,7 +5606,7 @@
 
 
     isWithContent() {
-      return Boolean(this.getTitle());
+      return Boolean(this.getBookName());
     }
 
     getTipElement() {
@@ -5624,7 +5624,7 @@
     }
 
     setContent(tip) {
-      this._sanitizeAndSetContent(tip, this.getTitle(), SELECTOR_TOOLTIP_INNER);
+      this._sanitizeAndSetContent(tip, this.getBookName(), SELECTOR_TOOLTIP_INNER);
     }
 
     _sanitizeAndSetContent(template, content, selector) {
@@ -5670,10 +5670,10 @@
       }
     }
 
-    getTitle() {
-      const title = this._element.getAttribute('data-bs-original-title') || this._config.title;
+    getBookName() {
+      const BookName = this._element.getAttribute('data-bs-original-BookName') || this._config.BookName;
 
-      return this._resolvePossibleFunction(title);
+      return this._resolvePossibleFunction(BookName);
     }
 
     updateAttachment(attachment) {
@@ -5789,23 +5789,23 @@
           selector: ''
         };
       } else {
-        this._fixTitle();
+        this._fixBookName();
       }
     }
 
-    _fixTitle() {
-      const title = this._element.getAttribute('title');
+    _fixBookName() {
+      const BookName = this._element.getAttribute('BookName');
 
-      const originalTitleType = typeof this._element.getAttribute('data-bs-original-title');
+      const originalBookNameType = typeof this._element.getAttribute('data-bs-original-BookName');
 
-      if (title || originalTitleType !== 'string') {
-        this._element.setAttribute('data-bs-original-title', title || '');
+      if (BookName || originalBookNameType !== 'string') {
+        this._element.setAttribute('data-bs-original-BookName', BookName || '');
 
-        if (title && !this._element.getAttribute('aria-label') && !this._element.textContent) {
-          this._element.setAttribute('aria-label', title);
+        if (BookName && !this._element.getAttribute('aria-label') && !this._element.textContent) {
+          this._element.setAttribute('aria-label', BookName);
         }
 
-        this._element.setAttribute('title', '');
+        this._element.setAttribute('BookName', '');
       }
     }
 
@@ -5892,8 +5892,8 @@
         };
       }
 
-      if (typeof config.title === 'number') {
-        config.title = config.title.toString();
+      if (typeof config.BookName === 'number') {
+        config.BookName = config.BookName.toString();
       }
 
       if (typeof config.content === 'number') {
@@ -6018,7 +6018,7 @@
     MOUSEENTER: `mouseenter${EVENT_KEY$3}`,
     MOUSELEAVE: `mouseleave${EVENT_KEY$3}`
   };
-  const SELECTOR_TITLE = '.popover-header';
+  const SELECTOR_BookName = '.popover-header';
   const SELECTOR_CONTENT = '.popover-body';
   /**
    * ------------------------------------------------------------------------
@@ -6046,11 +6046,11 @@
 
 
     isWithContent() {
-      return this.getTitle() || this._getContent();
+      return this.getBookName() || this._getContent();
     }
 
     setContent(tip) {
-      this._sanitizeAndSetContent(tip, this.getTitle(), SELECTOR_TITLE);
+      this._sanitizeAndSetContent(tip, this.getBookName(), SELECTOR_BookName);
 
       this._sanitizeAndSetContent(tip, this._getContent(), SELECTOR_CONTENT);
     } // Private

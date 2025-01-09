@@ -1,29 +1,30 @@
-﻿using Labb4_MVC_Razor.Data;
+﻿using Labb4_MVC_Razer.Data;
+using Labb4_MVC_Razor.Data;
 using Labb4_MVC_Razor.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Labb4_MVC_Razor.Data
+namespace Labb4_MVC_Razor.Utility
 {
     public static class DbInitializer
     {
         private static readonly Random _random = new();
+        private const string DefaultPassword = "Password123!";
 
         public static async Task Initialize(ApplicationDbContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             context.Database.EnsureCreated();
 
+            // Check if the database has been seeded
             if (context.Customers.Any())
             {
-                return;   // Database has already been seeded
+                return; // DB has been seeded
             }
 
-            // Define roles
-            string[] roleNames = { "Employee", "Customer" };
+            // Create roles
+            string[] roleNames = { "Customer", "Employee" };
             foreach (var roleName in roleNames)
             {
                 if (!await roleManager.RoleExistsAsync(roleName))
@@ -32,81 +33,66 @@ namespace Labb4_MVC_Razor.Data
                 }
             }
 
-            // Create and add users to roles
-            var users = new IdentityUser[]
-                {
-                    new IdentityUser { UserName = "julia.smith@gmail.com", Email = "julia.smith@gmail.com", EmailConfirmed = true },
-                    new IdentityUser { UserName = "michael.jones@hotmail.com", Email = "michael.jones@hotmail.com", EmailConfirmed = true },
-                    new IdentityUser { UserName = "sophie.martin@yahoo.com", Email = "sophie.martin@yahoo.com", EmailConfirmed = true },
-                    new IdentityUser { UserName = "alexander.wilson@outlook.com", Email = "alexander.wilson@outlook.com", EmailConfirmed = true },
-                    new IdentityUser { UserName = "lisa.anderson@gmail.com", Email = "lisa.anderson@gmail.com", EmailConfirmed = true },
-                    new IdentityUser { UserName = "chris.jackson@hotmail.com", Email = "chris.jackson@hotmail.com", EmailConfirmed = true },
-                    new IdentityUser { UserName = "emily.brown@yahoo.com", Email = "emily.brown@yahoo.com", EmailConfirmed = true },
-                    new IdentityUser { UserName = "david.miller@outlook.com", Email = "david.miller@outlook.com", EmailConfirmed = true },
-                    new IdentityUser { UserName = "olivia.davis@gmail.com", Email = "olivia.davis@gmail.com", EmailConfirmed = true },
-                    new IdentityUser { UserName = "benjamin.white@hotmail.com", Email = "benjamin.white@hotmail.com", EmailConfirmed = true },
-                    new IdentityUser { UserName = "ava.moore@yahoo.com", Email = "ava.moore@yahoo.com", EmailConfirmed = true },
-                    new IdentityUser { UserName = "jackson.lee@outlook.com", Email = "jackson.lee@outlook.com", EmailConfirmed = true },
-                    new IdentityUser { UserName = "mia.rodriguez@gmail.com", Email = "mia.rodriguez@gmail.com", EmailConfirmed = true },
-                    new IdentityUser { UserName = "ethan.harris@hotmail.com", Email = "ethan.harris@hotmail.com", EmailConfirmed = true },
-                    new IdentityUser { UserName = "chloe.martinez@yahoo.com", Email = "chloe.martinez@yahoo.com", EmailConfirmed = true }
-                };
-
-
-            foreach (var user in users)
+            // Customers
+            var customers = new[]
             {
-                var result = await userManager.CreateAsync(user, "Password123!");
+                new IdentityUser { UserName = "emma_andersson92@gmail.com", Email = "emma_andersson92@gmail.com", EmailConfirmed = true, PhoneNumber = GenerateRandomPhoneNumber()},
+                new IdentityUser { UserName = "johan.lindberg_85@yahoo.com", Email = "johan.lindberg_85@yahoo.com", EmailConfirmed = true, PhoneNumber = GenerateRandomPhoneNumber()},
+                new IdentityUser { UserName = "anna.karlsson@telia.com", Email = "anna.karlsson@telia.com", EmailConfirmed = true, PhoneNumber = GenerateRandomPhoneNumber() },
+                new IdentityUser { UserName = "erik.nilsson77@hotmail.com", Email = "erik.nilsson77@hotmail.com", EmailConfirmed = true, PhoneNumber = GenerateRandomPhoneNumber() },
+                new IdentityUser { UserName = "maria.gustafsson_88@outlook.com", Email = "maria.gustafsson_88@outlook.com", EmailConfirmed = true, PhoneNumber = GenerateRandomPhoneNumber() },
+                new IdentityUser { UserName = "amanda_eriksson@telia.com", Email = "amanda_eriksson@telia.com", EmailConfirmed = true, PhoneNumber = GenerateRandomPhoneNumber() },
+                new IdentityUser { UserName = "sara.persson90@gmail.com", Email = "sara.persson90@gmail.com", EmailConfirmed = true, PhoneNumber = GenerateRandomPhoneNumber() },
+                new IdentityUser { UserName = "mattias_berg_79@hotmail.com", Email = "mattias_berg_79@hotmail.com", EmailConfirmed = true, PhoneNumber = GenerateRandomPhoneNumber() },
+                new IdentityUser { UserName = "linnea_larsson85@telia.com", Email = "linnea_larsson85@telia.com", EmailConfirmed = true, PhoneNumber = GenerateRandomPhoneNumber() },
+                new IdentityUser { UserName = "daniel.svensson1980@yahoo.com", Email = "daniel.svensson1980@yahoo.com", EmailConfirmed = true, PhoneNumber = GenerateRandomPhoneNumber()}
+            };
 
-                if (result.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(user, "Customer");
-                }
+            foreach (var customer in customers)
+            {
+                await CreateUser(userManager, customer, "Customer", context);
             }
 
-            var employees = new IdentityUser[]
+            // Employees
+            var employees = new[]
             {
-                new IdentityUser { UserName = "josefin@mikaelsson.nu", Email = "josefin@mikaelsson.nu", EmailConfirmed = true }
-                // Add more managers as needed
+                new IdentityUser { UserName = "marianne.gustafsson@bibliotek.edu.se", Email = "marianne.gustafsson@bibliotek.edu.se", EmailConfirmed = true, PhoneNumber = GenerateRandomPhoneNumber()},
+                new IdentityUser { UserName = "anna.eriksson@bibliotek.edu.se", Email = "anna.eriksson@bibliotek.edu.se", EmailConfirmed = true, PhoneNumber = GenerateRandomPhoneNumber() }
             };
 
             foreach (var employee in employees)
             {
-                var result = await userManager.CreateAsync(employee, "Password123!");
-                if (result.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(employee, "Employee");
-                }
+                await CreateUser(userManager, employee, "Employee", context);
             }
 
-            // Save changes to get user IDs
             await context.SaveChangesAsync();
+        }
 
-            // Create employees linked to the users
-            var customers = new List<Customer>();
-            foreach (var user in users)
+        private static async Task CreateUser(UserManager<IdentityUser> userManager, IdentityUser user, string role, ApplicationDbContext context)
+        {
+            var result = await userManager.CreateAsync(user, DefaultPassword);
+            if (result.Succeeded)
             {
-                customers.Add(new Customer
+                await userManager.AddToRoleAsync(user, role);
+                var customerEntity = new Customer
                 {
                     ApplicationUserId = user.Id,
-                    FirstName = user.UserName.Split('@')[0].Split('.')[0], // Extract first name from email
-                    LastName = user.UserName.Split('@')[0].Split('.').Length > 1 ? user.UserName.Split('@')[0].Split('.')[1] : "Lastname",
-                    Email = user.Email
-                });
-            }
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber
+                };
 
-            foreach (var employee in employees)
+                context.Customers.Add(customerEntity);
+            }
+            else
             {
-                customers.Add(new Customer
-                {
-                    ApplicationUserId = employee.Id,
-                    FirstName = employee.UserName.Split('@')[0].Split('.')[0], // Extract first name from email
-                    LastName = employee.UserName.Split('@')[0].Split('.').Length > 1 ? employee.UserName.Split('@')[0].Split('.')[1] : "Lastname",
-                    Email = employee.Email
-                });
+                // Handle the errors if needed (e.g., log them)
+                // Example: Log.Error(string.Join(", ", result.Errors.Select(e => e.Description)));
             }
+        }
 
-            await context.Customers.AddRangeAsync(customers);
-            await context.SaveChangesAsync();
+        private static string GenerateRandomPhoneNumber()
+        {
+            return $"07{_random.Next(0, 10000000):0000000}";
         }
     }
 }
